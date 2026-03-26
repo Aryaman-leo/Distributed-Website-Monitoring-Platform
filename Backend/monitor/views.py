@@ -1,9 +1,14 @@
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from django.views.generic import TemplateView
 from .models import Website, MonitorResult
 from .serializers import WebsiteSerializer, MonitorResultSerializer
 from .tasks import check_website
+
+
+class HomePageView(TemplateView):
+    template_name = 'monitor/home.html'
 
 
 class WebsiteViewSet(viewsets.ModelViewSet):

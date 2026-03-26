@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Distributed Website Monitoring Platform</title>
+    <style>
+        :root {
+            color-scheme: dark;
+        }
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #0b1220;
+            color: #e6edf7;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+        }
+        .card {
+            width: min(720px, 100%);
+            background: #101a2e;
+            border: 1px solid #2d3b55;
+            border-radius: 14px;
+            padding: 28px;
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
+        }
+        h1 {
+            margin: 0 0 12px;
+            font-size: clamp(1.4rem, 2vw, 2rem);
+        }
+        p {
+            margin: 10px 0;
+            line-height: 1.5;
+            color: #c4d0e3;
+        }
+        .links {
+            margin-top: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        a {
+            color: #93c5fd;
+            text-decoration: none;
+            border: 1px solid #3b82f6;
+            border-radius: 8px;
+            padding: 8px 12px;
+        }
+        a:hover {
+            background: rgba(59, 130, 246, 0.15);
+        }
+    </style>
+</head>
+<body>
+    <main class="card">
+        <h1>Distributed Website Monitoring Platform</h1>
+        <p>This page is rendered by Django on the server.</p>
+        <p>Use the API and admin panel links below to manage websites and inspect monitoring data.</p>
+        <div class="links">
+            <a href="/api/">API Root</a>
+            <a href="/api/websites/">Websites</a>
+            <a href="/api/results/">Results</a>
+            <a href="/admin/">Admin</a>
+        </div>
+    </main>
+</body>
+</html>
