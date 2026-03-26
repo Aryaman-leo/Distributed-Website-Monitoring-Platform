@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Distributed Website Monitoring Platform</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    .card {
+      width: 100%;
+      max-width: 760px;
+      background: #111827;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 24px;
+    }
+    h1 {
+      margin-top: 0;
+      font-size: 1.8rem;
+    }
+    p {
+      line-height: 1.55;
+      color: #cbd5e1;
+    }
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    a {
+      color: #93c5fd;
+      text-decoration: none;
+      border: 1px solid #3b82f6;
+      border-radius: 8px;
+      padding: 8px 12px;
+      display: inline-block;
+    }
+    a:hover {
+      background: rgba(59, 130, 246, 0.14);
+    }
+    code {
+      color: #bfdbfe;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>Distributed Website Monitoring Platform</h1>
+    <p>
+      This Netlify deployment is a static landing page for the project repository.
+      The backend is a Django + Celery service and should run on a backend host.
+    </p>
+    <p>
+      Local server-side rendering endpoint:
+      <code>http://127.0.0.1:8000/</code>
+    </p>
+    <div class="links">
+      <a href="/Backend/README.md">Backend README</a>
+      <a href="http://127.0.0.1:8000/" target="_blank" rel="noopener noreferrer">Local SSR Home</a>
+      <a href="http://127.0.0.1:8000/api/" target="_blank" rel="noopener noreferrer">Local API</a>
+      <a href="http://127.0.0.1:8000/admin/" target="_blank" rel="noopener noreferrer">Local Admin</a>
+    </div>
+  </main>
+</body>
+</html>
