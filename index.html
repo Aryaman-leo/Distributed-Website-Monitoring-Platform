@@ -60,18 +60,27 @@
     <h1>Distributed Website Monitoring Platform</h1>
     <p>
       This Netlify deployment is a static landing page for the project repository.
-      The backend is a Django + Celery service and should run on a backend host.
+      The backend is hosted separately (Render) and linked below.
     </p>
     <p>
-      Local server-side rendering endpoint:
-      <code>http://127.0.0.1:8000/</code>
+      Public backend endpoint:
+      <code id="backend-url">https://distributed-monitoring-web.onrender.com</code>
     </p>
     <div class="links">
       <a href="/Backend/README.md">Backend README</a>
-      <a href="http://127.0.0.1:8000/" target="_blank" rel="noopener noreferrer">Local SSR Home</a>
-      <a href="http://127.0.0.1:8000/api/" target="_blank" rel="noopener noreferrer">Local API</a>
-      <a href="http://127.0.0.1:8000/admin/" target="_blank" rel="noopener noreferrer">Local Admin</a>
+      <a id="ssr-link" href="https://distributed-monitoring-web.onrender.com/" target="_blank" rel="noopener noreferrer">SSR Home</a>
+      <a id="api-link" href="https://distributed-monitoring-web.onrender.com/api/" target="_blank" rel="noopener noreferrer">API</a>
+      <a id="admin-link" href="https://distributed-monitoring-web.onrender.com/admin/" target="_blank" rel="noopener noreferrer">Admin</a>
     </div>
   </main>
+  <script>
+    // Update this value after Render deploy if your service URL differs.
+    const BACKEND_BASE_URL = "https://distributed-monitoring-web.onrender.com";
+    const base = BACKEND_BASE_URL.replace(/\/+$/, "");
+    document.getElementById("backend-url").textContent = base;
+    document.getElementById("ssr-link").href = base + "/";
+    document.getElementById("api-link").href = base + "/api/";
+    document.getElementById("admin-link").href = base + "/admin/";
+  </script>
 </body>
 </html>

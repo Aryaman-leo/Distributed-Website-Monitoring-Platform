@@ -306,6 +306,108 @@ Run Celery workers with Supervisor or Systemd
 
 ---
 
+# Complete Hosted Deployment Guide (Render + Netlify)
+
+This repo is split as:
+
+- Backend (Django/Celery/Redis/Postgres): hosted on Render
+- Landing page (static `index.html`): hosted on Netlify
+
+## A) Backend deployment on Render (no shortcuts)
+
+### 1. Push all required files
+
+Ensure these files are pushed to GitHub:
+
+- `render.yaml`
+- `Backend/config/wsgi.py`
+- `Backend/config/settings.py`
+- `Backend/requirements.txt`
+- `Backend/.env.example`
+
+### 2. Create all services using Blueprint
+
+1. Open Render dashboard
+2. Click **New +** → **Blueprint**
+3. Select your GitHub repo and branch
+4. Click **Apply**
+
+Render creates:
+
+- `distributed-monitoring-web` (Django + Gunicorn)
+- `distributed-monitoring-worker` (Celery worker)
+- `distributed-monitoring-beat` (Celery beat)
+- `distributed-monitoring-db` (Postgres)
+- `distributed-monitoring-redis` (Redis)
+
+### 3. Environment variables and where to get them
+
+`render.yaml` already wires most variables:
+
+- `SECRET_KEY`: auto-generated on web service
+- `DATABASE_URL`: from Postgres connection string
+- `CELERY_BROKER_URL`: from Redis connection string
+- `CELERY_RESULT_BACKEND`: from Redis connection string
+- `DEBUG`: set to `False`
+- `ALLOWED_HOSTS`: set to `.onrender.com`
+
+Manual check in Render:
+
+1. Open `distributed-monitoring-web` → **Environment**
+2. Confirm all vars exist
+3. Reveal/copy `SECRET_KEY` only if you need it elsewhere
+
+If you add custom domain later, update:
+
+- `ALLOWED_HOSTS` to include your domain
+- `CSRF_TRUSTED_ORIGINS` to `https://your-domain.com`
+
+### 4. Build/start commands (already in blueprint)
+
+- Web build: `pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate`
+- Web start: `gunicorn config.wsgi:application --bind 0.0.0.0:$PORT`
+- Worker start: `celery -A config worker -l info`
+- Beat start: `celery -A config beat -l info`
+
+### 5. Verify backend is truly live
+
+After deploy is healthy, open:
+
+- `https://<your-render-service>.onrender.com/`
+- `https://<your-render-service>.onrender.com/api/`
+- `https://<your-render-service>.onrender.com/api/websites/`
+
+Also check logs:
+
+- Web logs: app boot + migrations
+- Worker logs: connected to Redis
+- Beat logs: scheduled checks every 60 seconds
+
+## B) Netlify deployment (public landing page)
+
+Your Netlify URL serves static `index.html`. It must link to your Render backend URL.
+
+1. Open root `index.html`
+2. Update `BACKEND_BASE_URL` to your real Render URL if needed
+3. Push changes to GitHub
+4. Redeploy Netlify
+
+Result:
+
+- Netlify URL = public landing page
+- Render URL = real backend/API/admin
+
+## C) Final production checklist
+
+- [ ] Render web/worker/beat are all healthy
+- [ ] Postgres and Redis are connected
+- [ ] `DEBUG=False`
+- [ ] `ALLOWED_HOSTS` and `CSRF_TRUSTED_ORIGINS` are correct
+- [ ] Netlify links point to Render URL
+- [ ] Add at least one website and verify results are generated
+
+---
+
 # Future Improvements
 
 Dashboard UI (React / Next.js)  
